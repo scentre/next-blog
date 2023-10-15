@@ -1,12 +1,5 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import Hero from "@/components/home-page/hero";
-import FeaturedPosts from "@/components/home-page/featured-post";
-import { getAllPosts, getFeaturedPosts } from "@/lib/posts-util";
-
-const inter = Inter({ subsets: ["latin"] });
+import AllPosts from "@/components/posts/all-posts";
+import { getAllPosts } from "@/lib/posts-util";
 
 const DUMMY_POSTS = [
   {
@@ -46,24 +39,18 @@ const DUMMY_POSTS = [
   },
 ];
 
-export default function Home({ posts }) {
-  console.log(posts);
-  return (
-    <>
-      <Hero />
-      <FeaturedPosts posts={posts} />
-    </>
-  );
+function AllPostsPage({ posts }) {
+  return <AllPosts post={posts} />;
 }
 
-export function getStaticProps() {
-  const featuredPosts = getFeaturedPosts();
+export default AllPostsPage;
 
-  console.log(featuredPosts);
+export function getStaticProps() {
+  const allposts = getAllPosts();
+
   return {
     props: {
-      posts: featuredPosts,
+      posts: allposts,
     },
-    revalidate: 6100,
   };
 }
